@@ -10,9 +10,3 @@ module "workload_identity" {
   use_existing_k8s_sa = false
 }
 
-
-resource "google_project_iam_member" "user_account" {
-  project = var.project_id
-  role    = "roles/admin"
-  member  = "serviceAccount:${var.federated_sa}"
-}
