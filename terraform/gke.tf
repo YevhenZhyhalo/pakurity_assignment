@@ -20,7 +20,7 @@ module "gke" {
   version = "~> 36.0"
 
   project_id               = var.project_id
-  name                     = "cluster${var.cluster_name_suffix}"
+  name                     = var.cluster_name
   region                   = var.region
   network                  = var.network
   subnetwork               = var.subnetwork

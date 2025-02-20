@@ -5,8 +5,8 @@ variable "project_id" {
   type = string
 }
 
-variable "cluster_name_suffix" {
-  description = "A suffix to append to the default cluster name"
+variable "cluster_name" {
+  description = "A cluster name"
   default     = ""
   type = string
 }
