@@ -18,11 +18,6 @@ variable "region" {
 
 }
 
-variable "compute_engine_service_account" {
-  description = "Service account to associate to the nodes in the cluster"
-  type = string
-
-}
 
 variable "enable_binary_authorization" {
   description = "Enable BinAuthZ Admission controller"
