@@ -3,7 +3,7 @@ module "data_warehouse" {
   version = "~> 9.0"
 
   project_id          = var.project_id
-  region              = "asia-southeast1"
+  region              = var.region
   deletion_protection = false
   force_destroy       = true
 }
