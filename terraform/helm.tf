@@ -12,6 +12,12 @@ resource "helm_release" "trivy" {
     name  = "trivy.ignoreUnfixed"
     value = "true"
   }
+  set {
+    name  = "trivy.logDevMode"
+    value = "true"
+  }
+
+
 
 }
 
