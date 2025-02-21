@@ -1,0 +1,1 @@
+/Users/yzhyhalo/repos/pakurity_assignment/app/target/debug/app: /Users/yzhyhalo/repos/pakurity_assignment/app/src/auth.rs /Users/yzhyhalo/repos/pakurity_assignment/app/src/error.rs /Users/yzhyhalo/repos/pakurity_assignment/app/src/main.rs

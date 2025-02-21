@@ -1,0 +1,1 @@
+cargo:rustc-env=MIME_TYPES_GENERATED_PATH=/Users/yzhyhalo/repos/pakurity_assignment/app/target/debug/build/mime_guess-b55ff973307da281/out/mime_types_generated.rs
