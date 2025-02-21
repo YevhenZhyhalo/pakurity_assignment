@@ -3,4 +3,4 @@ subnetwork = "gke-subnetwork"
 ip_range_pods = "pods-subnet"
 ip_range_services = "services-subnet"
 cluster_name = "cluster-pakurity"
-
+project_id = "spheric-shield-451012-u9"
