@@ -1,0 +1,59 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+env:
+  GCP_PROJECT: spheric-shield-451012-u9
+  GCP_REGION: us-central1
+  GAR_REPOSITORY: docker-repo
+
+  IMAGE_NAME: application
+  IMAGE_TAG: latest
+  GKE_CLUSTER: cluster-pakurity
+  GKE_REGION: us-central1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+          project_id: ${{ vars.GCP_PROJECT }}
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }} 
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ env.GCP_PROJECT }}
+          service_account_key: ${{ env.GOOGLE_CREDENTIALS }}
+
+      - name: Configure Docker to use the gcloud command-line tool as a credential helper
+        run: gcloud auth configure-docker ${{ env.GCP_REGION }}-docker.pkg.dev
+
+      - name: Build, tag, and push image to Google Artifact Repository
+        run: |
+          docker buildx create --use
+          docker buildx build --push \
+            --tag us-central1-docker.pkg.dev/${{ env.GCP_PROJECT }}/docker-repo/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} \
+            .
+          echo "IMAGE_URI=${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT }}/${{ env.GAR_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}" >> $GITHUB_ENV
+
+
