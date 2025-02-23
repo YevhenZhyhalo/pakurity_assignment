@@ -59,7 +59,7 @@ async fn main() {
         .or(healthcheck)
         .recover(error::handle_rejection);
 
-    warp::serve(routes).run(([127, 0, 0, 1], 80)).await;
+    warp::serve(routes).run(([0, 0, 0, 0], 80)).await;
 }
 
 fn with_users(users: Users) -> impl Filter<Extract = (Users,), Error = Infallible> + Clone {
