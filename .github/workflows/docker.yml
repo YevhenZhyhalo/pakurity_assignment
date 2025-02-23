@@ -1,6 +1,6 @@
 name: Docker Image CI
-
-
+on:
+  workflow_call:
 env:
   GCP_PROJECT: spheric-shield-451012-u9
   GCP_REGION: us-central1
