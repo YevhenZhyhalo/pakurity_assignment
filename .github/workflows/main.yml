@@ -1,4 +1,4 @@
-name: Demo1
+name: Main
 on:
   push:
     branches: [ "main" ]
@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-  call-workflow1:
+  call-docker:
     uses: ./.github/workflows/docker.yml
     secrets: inherit
-  call-workflow2:
+  call-terraform:
     if: ${{ always() }} #This will make your workflow2 executed even if workflow1 fails, remove this, if you want to run this only on success of workflow1
     needs: call-workflow1
     uses: ./.github/workflows/terraform.yml
