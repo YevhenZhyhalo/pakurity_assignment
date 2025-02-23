@@ -95,14 +95,32 @@ resources: {}
 
 # This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
+
+#readinessProbe:
+#  exec:
+#    command:
+#      - "ls"
+#livenessProbe:
+#  exec:
+#    command: 
+#      - "ls"
+#startupProbe:
+#  exec:
+#    command:
+#      - "ls"
+
 livenessProbe:
   httpGet:
-    path: /login
-    port: http
+    path: /healthcheck
+    port: 80
+  initialDelaySeconds: 5
+  periodSeconds: 10
 readinessProbe:
   httpGet:
-    path: /login
-    port: http
+    path: /healthcheck
+    port: 80
+  initialDelaySeconds: 5
+  periodSeconds: 10
 
 # This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
 autoscaling:

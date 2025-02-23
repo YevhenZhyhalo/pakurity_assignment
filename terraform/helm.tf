@@ -35,3 +35,11 @@ resource "helm_release" "nginx_ingress" {
 
 
 }
+
+resource "helm_release" "application" {
+  name       = "application"
+  chart      = "../app/helm/"
+  create_namespace = true
+  namespace        = "app"
+
+}
