@@ -1,10 +1,6 @@
 name: Docker Image CI
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+
 env:
   GCP_PROJECT: spheric-shield-451012-u9
   GCP_REGION: us-central1
