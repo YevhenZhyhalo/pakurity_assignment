@@ -43,7 +43,7 @@ async fn main() {
         .and_then(login_handler);
 
 
-    let healthcheck = warp::path("healthcheck").map(|| "Healthy!");
+    let healthcheck = warp::path("health").map(|| "Healthy!");
 
 
     let user_route = warp::path!("user")
