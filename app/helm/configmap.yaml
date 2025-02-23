@@ -1,0 +1,6 @@
+apiVersion: v1
+data:
+  retry-non-idempotent: true
+kind: ConfigMap
+metadata:
+  name: ingress-nginx-controller

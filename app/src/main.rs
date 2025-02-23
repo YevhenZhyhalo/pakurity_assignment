@@ -42,6 +42,10 @@ async fn main() {
         .and(warp::body::json())
         .and_then(login_handler);
 
+
+    let healthcheck = warp::path("healthcheck").map(|| "Hello!");
+
+
     let user_route = warp::path!("user")
         .and(with_auth(Role::User))
         .and_then(user_handler);
@@ -52,9 +56,10 @@ async fn main() {
     let routes = login_route
         .or(user_route)
         .or(admin_route)
+        .or(healthcheck)
         .recover(error::handle_rejection);
 
-    warp::serve(routes).run(([127, 0, 0, 1], 8000)).await;
+    warp::serve(routes).run(([127, 0, 0, 1], 80)).await;
 }
 
 fn with_users(users: Users) -> impl Filter<Extract = (Users,), Error = Infallible> + Clone {
