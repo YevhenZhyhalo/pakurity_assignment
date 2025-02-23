@@ -27,7 +27,7 @@ jobs:
         run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
      
       - shell: 'bash'
-        run: | -
+        run: | 
           echo '${{ secrets.GOOGLE_CREDENTIALS }}' | wc -c
 
       - name: Authenticate to GCP
