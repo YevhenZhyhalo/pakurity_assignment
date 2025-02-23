@@ -11,7 +11,7 @@
     name        = "log_sink"
     description = "log sink for trivy"
     destination = "bigquery.googleapis.com/projects/${var.project_id}/datasets/${google_bigquery_dataset.dataset.dataset_id}"
-    filter      = "resource.labels.cluster_name=${var.cluster_name}"
+    filter      = "resource.labels.cluster_name=${var.cluster_name} AND resource.labels.namespace_name=${helm_release.trivy.namespace} AND labels.k8s-pod/app_kubernetes_io/name=${helm_release.trivy.name} AND labels.k8s-pod/app_kubernetes_io/instance=${helm_release.trivy.name}"
 
     # Whether or not to create a unique identity associated with this sink.
     unique_writer_identity = true

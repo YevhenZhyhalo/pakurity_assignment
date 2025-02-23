@@ -5,7 +5,7 @@ resource "helm_release" "trivy" {
   repository       = "https://aquasecurity.github.io/helm-charts/"
   chart            = "trivy-operator"
   namespace        = "trivy-system"
-  version          = "0.25.0"
+  version          = "0.26.0"
   timeout          = 1200
   create_namespace = true
   set {
@@ -13,10 +13,13 @@ resource "helm_release" "trivy" {
     value = "true"
   }
   set {
-    name  = "trivy.logDevMode"
+    name  = "operator.logDevMode"
     value = "true"
   }
-
+  set {
+    name  = "operator.builtInTrivyServer"
+    value = "true"
+  }
 
 
 }
