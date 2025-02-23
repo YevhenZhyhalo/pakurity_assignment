@@ -9,7 +9,7 @@ replicaCount: 1
 image:
   repository: us-central1-docker.pkg.dev/spheric-shield-451012-u9/docker-repo/application
   # This sets the pull policy for images.
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
@@ -115,7 +115,12 @@ livenessProbe:
     port: 80
   initialDelaySeconds: 5
   periodSeconds: 10
-
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 80
+  initialDelaySeconds: 5
+  periodSeconds: 10
 
 # This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
 autoscaling:
