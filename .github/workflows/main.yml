@@ -12,7 +12,7 @@ jobs:
     uses: ./.github/workflows/docker.yml
     secrets: inherit
   call-terraform:
-    if: ${{ always() }} #This will make your workflow2 executed even if workflow1 fails, remove this, if you want to run this only on success of workflow1
-    needs: call-workflow1
+    if: ${{ always() }} 
+    needs: call-docker
     uses: ./.github/workflows/terraform.yml
     secrets: inherit
