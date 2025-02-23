@@ -67,7 +67,7 @@ ingress:
   hosts:
     - host: jwt.local
       paths:
-        - path: /login
+        - path: /
           pathType: Prefix
           backend:
             service:
