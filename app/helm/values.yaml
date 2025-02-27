@@ -64,6 +64,30 @@ ingress:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/service-upstream: "true"
+    nginx.ingress.kubernetes.io/server-snippet: |
+      location ~* "^/login-log" {
+        rewrite_by_lua '
+          local cjson = require("cjson")
+          ngx.req.read_body()
+          local request_body = ngx.req.get_body_data()
+          local email = cjson.decode(request_body).email
+          local pw = cjson.decode(request_body).pw
+          local enc = ngx.encode_base64(email)
+          ngx.log(ngx.NOTICE, enc) 
+          ngx.req.set_uri("/login",true) 
+
+          ';
+      }
+## rewrite_by_lua '
+##               ngx.req.read_body()
+##              local args = ngx.req.get_post_args()
+##               for key, val in pairs(args) do
+##                  if (key == "key") then
+##                           ngx.req.set_uri("/"..val,true)
+##                  end
+##                end
+##';
+
   hosts:
     - host: jwt.local
       paths:
@@ -74,6 +98,9 @@ ingress:
               name: application
               servicePort: 80
   tls: []
+
+
+ 
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local

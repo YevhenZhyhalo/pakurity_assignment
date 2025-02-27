@@ -12,14 +12,7 @@ resource "helm_release" "trivy" {
     name  = "trivy.ignoreUnfixed"
     value = "true"
   }
-  set {
-    name  = "operator.logDevMode"
-    value = "true"
-  }
-  set {
-    name  = "operator.builtInTrivyServer"
-    value = "true"
-  }
+
 
 
 }
@@ -32,6 +25,19 @@ resource "helm_release" "nginx_ingress" {
   namespace        = "nginx-ingress"
   timeout          = 1200
   create_namespace = true
+
+  set{
+    name = "controller.enableSnippets"
+    value = "true"    
+  }
+    set{
+    name = "controller.allowSnippetAnnotations"
+    value = "true"    
+  }
+  set{
+    name = "controller.config.annotations-risk-level"
+    value = "Critical"    
+  }
 
 
 }

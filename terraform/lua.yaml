@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ngx-custom-script
+data:
+  main.lua: |
+    local ngx = ngx
+    local _M = {}
+    local ua = ngx.var.http_user_agent
+    ngx_log(ngx.NOTICE, string_format("User Agent passed: \"%s\"", ua))
+    function _M.rewrite()
+      local cjson = require("cjson")
+      ngx.req.read_body()
+      local request_body = ngx.req.get_body_data()
+      ngx.log(ngx.INFO, "Request Body: " .. request_body) 
+      if request_body then
+        local email = cjson.decode(request_body).email
+        local pattern = "^[%w.-]+@[%w.-]+%.[a-z]+$"
+        local match, _ = string.find(string.lower(email), pattern)
+        if email and (match == nil) then
+          ngx.status = 403
+          ngx.log(ngx.ERR, "Forbidden: Non-email email \'", email, "\' not allowed!")
+          ngx.exit(ngx.HTTP_FORBIDDEN)
+        end
+      end
+    end
+    return _M
+
+    

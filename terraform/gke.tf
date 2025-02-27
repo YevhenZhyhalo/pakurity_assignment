@@ -24,7 +24,7 @@ module "gke" {
   node_pools = [
     {
       name         = var.nodepool_name
-      min_count    = 1
+      min_count    = 2
       max_count    = 2
       auto_upgrade = true
     }
