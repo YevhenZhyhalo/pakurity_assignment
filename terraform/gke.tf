@@ -31,3 +31,13 @@ module "gke" {
     }
   ]
 }
+
+// Grant the cluster sevice-account access for Aritfact Registry
+resource "google_project_iam_binding" "cluster-to-arr" {
+  role    = "roles/artifactregistry.reader"
+  project = var.project_id
+
+  members = [
+    module.gke.service_account,
+  ]
+}
