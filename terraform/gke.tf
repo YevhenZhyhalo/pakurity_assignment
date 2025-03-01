@@ -38,6 +38,6 @@ resource "google_project_iam_binding" "cluster-to-arr" {
   project = var.project_id
 
   members = [
-    module.gke.service_account,
+    "serviceAccount:${module.gke.service_account}",
   ]
 }
