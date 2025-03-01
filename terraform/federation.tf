@@ -6,7 +6,7 @@ module "workload_identity" {
 
   project_id          = var.project_id
   name                = var.federated_sa
-  namespace           = "default"
+  namespace           = "app"
   use_existing_k8s_sa = false
 }
 

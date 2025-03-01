@@ -2,20 +2,25 @@
 
 variable "project_id" {
   description = "The project ID to host the cluster in"
-  type = string
+  type        = string
 }
 
 variable "cluster_name" {
   description = "A cluster name"
   default     = ""
-  type = string
+  type        = string
 }
 
 variable "region" {
   description = "The region to host the cluster in"
-  default = "us-central1"
-  type = string
+  default     = "us-central1"
+  type        = string
 
+}
+variable "zones" {
+  type        = list(string)
+  default     = ["us-central1-a", "us-central1-b", "us-central1-c"]
+  description = "The zone to host the cluster in (required if is a zonal cluster)"
 }
 
 
@@ -27,46 +32,46 @@ variable "enable_binary_authorization" {
 variable "network" {
   description = "The VPC network created to host the cluster in"
   default     = "gke-network"
-  type = string
+  type        = string
 
 }
 
 variable "subnetwork" {
   description = "The subnetwork created to host the cluster in"
   default     = "gke-subnet"
-  type = string
+  type        = string
 
 }
 
 variable "ip_range_pods" {
   description = "The secondary ip range to use for pods"
-  type = string
+  type        = string
 
 }
 
 variable "ip_range_services" {
   description = "The secondary ip range to use for services"
-  type = string
+  type        = string
 
 }
 
 variable "nodepool_name" {
   description = "Name for the kubernetes nodepool"
-  type = string
-  default = "wi-pool"
+  type        = string
+  default     = "wi-pool"
 }
 
 
 variable "federated_sa" {
   description = "Name for the federated workload identity SA"
-  type = string
-  default = "federated-workload-identity"
+  type        = string
+  default     = "federated-workload-identity"
 
 }
 
 variable "service_account" {
   description = "Name for the federated workload identity SA"
-  type = string
-  default = "overpowereduser"
+  type        = string
+  default     = "overpowereduser"
 
 }

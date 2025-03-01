@@ -12,6 +12,7 @@ module "gke" {
 
   project_id               = var.project_id
   name                     = var.cluster_name
+  zones                    = var.zones
   region                   = var.region
   network                  = var.network
   subnetwork               = var.subnetwork
@@ -24,8 +25,8 @@ module "gke" {
   node_pools = [
     {
       name         = var.nodepool_name
-      min_count    = 2
-      max_count    = 2
+      min_count    = 1
+      max_count    = 1
       auto_upgrade = true
     }
   ]

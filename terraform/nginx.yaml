@@ -1,8 +1,0 @@
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: test-nginx-ingress-controller
-  namespace: nginx-ingress
-data:
-  log-format-escape-json: "true"
-  log-format-upstream: '{"request_body": "$request_body" }'
